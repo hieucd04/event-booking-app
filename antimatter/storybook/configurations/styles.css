@@ -1,0 +1,57 @@
+.docblock-argstable .docblock-argstable-head th:nth-of-type(2),
+.docblock-argstable .docblock-argstable-body td:nth-of-type(2) {
+    width: auto !important;
+}
+
+.docblock-argstable .docblock-argstable-head th:nth-of-type(3),
+.docblock-argstable .docblock-argstable-body td:nth-of-type(3) {
+    width: 23% !important;
+}
+
+@supports (-webkit-hyphens:none) {
+    /* Safari only */
+    input {
+        border-radius: 0;
+        -webkit-appearance: none;
+    }
+}
+
+body {
+    background-color: rgb(30, 30, 30);
+}
+
+input {
+    outline: none;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+i,
+em {
+    font-style: italic;
+}
+
+u {
+    text-decoration: underline;
+}
+
+.property-description__supported-platform-section {
+    display: block;
+    margin-bottom: 10px;
+    color: #9B9B9B;
+}
+
+.property-description__supported-platform-value--iOS {
+    color: #FFFFFF;
+}
+
+.property-description__supported-platform-value--android {
+    color: #87AC4E;
+}
+
+.property-description__supported-platform-value--web {
+    color: #00A0FF;
+}

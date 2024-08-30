@@ -1,0 +1,21 @@
+import {Canvas, Meta, ArgTypes} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-storybook";
+import {DatePicker} from "../main";
+import {DatePickerProps} from "../models";
+import * as Stories from "./stories";
+
+<Meta of={Stories} name="Docs"/>
+<Sb.Intro of={DatePicker} propsType={DatePickerProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
+<Canvas of={Stories.Playground} story={{height: "380px"}} sourceState={"none"}/>
+
+### Props table
+<ArgTypes of={Stories.Playground}/>
+
+### Prefilled
+<Canvas of={Stories.Prefilled} story={{height: "380px"}}/>
+
+### Placeholder
+<Canvas of={Stories.Placeholder} story={{height: "380px"}}/>
+
+### Date format
+<Canvas of={Stories.Format} story={{height: "380px"}}/>

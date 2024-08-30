@@ -1,0 +1,33 @@
+import {Canvas, Meta, ArgTypes} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-storybook";
+import {NumericInputField} from "../main";
+import {NumericInputFieldProps} from "../models";
+import * as Stories from "./stories";
+
+<Meta of={Stories} name="Docs"/>
+<Sb.Intro of={NumericInputField} propsType={NumericInputFieldProps} supportedPlatforms={["iOS", "Web"]}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<ArgTypes of={Stories.Playground}/>
+
+### Prefilled
+<Canvas of={Stories.Prefilled}/>
+
+### Placeholder
+<Canvas of={Stories.Placeholder}/>
+
+### Explicit "+" Symbol
+<Canvas of={Stories.ExplicitPlusSymbol}/>
+
+### Range
+The `numeric input field` below accepts number from `-100` to `100`:
+<Canvas of={Stories.Range}/>
+
+### Digit Count
+The `numeric input field` below accepts numbers having less than or equal to 5 digits:
+<Canvas of={Stories.DigitCount}/>
+
+### Fraction Digit Count
+The `numeric input field` below supports up to 5 fraction digits:
+<Canvas of={Stories.FractionDigitCount}/>

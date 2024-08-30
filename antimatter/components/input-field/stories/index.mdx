@@ -1,0 +1,24 @@
+import {Canvas, Meta, ArgTypes} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-storybook";
+import {InputField} from "../main";
+import {InputFieldProps} from "../models";
+import * as Stories from "./stories";
+
+<Meta of={Stories} name="Docs"/>
+<Sb.Intro of={InputField} propsType={InputFieldProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<ArgTypes of={Stories.Playground}/>
+
+### Prefilled
+<Canvas of={Stories.Prefilled}/>
+
+### Placeholder
+<Canvas of={Stories.Placeholder}/>
+
+### Password Field
+<Canvas of={Stories.PasswordField}/>
+
+### With Addon
+<Canvas of={Stories.WithAddon}/>

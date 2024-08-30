@@ -1,0 +1,8 @@
+{
+  "name": "@miniskylab/antimatter-typography",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "expo-font": "12.0.8"
+  }
+}

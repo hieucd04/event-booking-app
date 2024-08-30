@@ -1,0 +1,21 @@
+import {Canvas, Meta, ArgTypes} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-storybook";
+import {Text} from "../main";
+import {TextProps} from "../models";
+import * as Stories from "./stories";
+
+<Meta of={Stories} name="Docs"/>
+<Sb.Intro of={Text} propsType={TextProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<ArgTypes of={Stories.Playground}/>
+
+### Style, Weight & Decoration
+<Canvas of={Stories.StyleWeightAndDecoration}/>
+
+### Size
+<Canvas of={Stories.Size}/>
+
+### Badge
+<Canvas of={Stories.Badge}/>

@@ -1,0 +1,19 @@
+## User-specific files
+*.suo
+*.user
+.vs/
+.vscode/
+
+## .NET
+[Bb]in/
+[Oo]bj/
+
+## Frontend
+__dist__/
+node_modules/
+
+## Windows
+$RECYCLE.BIN/
+Thumbs.db
+ehthumbs.db
+Desktop.ini

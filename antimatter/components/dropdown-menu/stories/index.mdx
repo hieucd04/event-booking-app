@@ -1,0 +1,24 @@
+import {Canvas, Meta, ArgTypes} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-storybook";
+import {DropdownMenu} from "../main";
+import {DropdownMenuProps} from "../models";
+import * as Stories from "./stories";
+
+<Meta of={Stories} name="Docs"/>
+<Sb.Intro of={DropdownMenu} propsType={DropdownMenuProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<ArgTypes of={Stories.Playground}/>
+
+### Divider
+<Canvas of={Stories.Divider} story={{height: "300px"}}/>
+
+### Disabled options
+<Canvas of={Stories.DisabledOptions} story={{height: "290px"}}/>
+
+### Dropup
+<Canvas of={Stories.Dropup}/>
+
+### Pre-Selected
+<Canvas of={Stories.PreSelected} story={{height: "290px"}}/>

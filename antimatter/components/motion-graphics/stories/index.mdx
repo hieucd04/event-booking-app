@@ -1,0 +1,19 @@
+import {Canvas, Meta, Title} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-storybook";
+import * as Stories from "./stories";
+
+<Meta title="Components/Motion Graphics"/>
+
+<div style={{textAlign: "center"}}>
+    <Title>Motion Graphics</Title>
+    <Sb.Intro supportedPlatforms={["iOS", "Android", "Web"]}/>
+    <p>The collection of motion graphic components.</p>
+</div>
+<br/>
+<br/>
+
+### Spinning Double Gear
+<Canvas of={Stories.SpinningDoubleGear}/>
+
+### Progress Stripes
+<Canvas of={Stories.ProgressStripes}/>
