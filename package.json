@@ -1,7 +1,7 @@
 {
   "name": "eventbookingapp",
   "version": "1.0.0",
-  "main": "App.tsx",
+  "main": "app.tsx",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
