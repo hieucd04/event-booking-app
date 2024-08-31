@@ -1,7 +1,9 @@
 import { View } from "@miniskylab/antimatter-view";
 import { DataList } from "@miniskylab/antimatter-data-list";
 import { DefaultIconSet } from "@miniskylab/antimatter-typography";
+import { EventRow } from "./components";
 import * as Styles from "./styles";
+import * as TestData from "./test-data";
 
 export function Application()
 {
@@ -25,6 +27,11 @@ export function Application()
                         onPress: () => { alert("Lorem Ipsum"); }
                     }}
                 >
+                    <EventRow.Component style={Styles.App__EventRow} title={"Test Title"} location={"Test Location"} date={new Date()} image={TestData.PlaceholderImage} />
+                    <EventRow.Component style={Styles.App__EventRow} title={"Test Title"} location={"Test Location"} date={new Date()} image={TestData.PlaceholderImage} />
+                    <EventRow.Component style={Styles.App__EventRow} title={"Test Title"} location={"Test Location"} date={new Date()} image={TestData.PlaceholderImage} />
+                    <EventRow.Component style={Styles.App__EventRow} title={"Test Title"} location={"Test Location"} date={new Date()} image={TestData.PlaceholderImage} />
+                    <EventRow.Component style={Styles.App__EventRow} title={"Test Title"} location={"Test Location"} date={new Date()} image={TestData.PlaceholderImage} />
                 </DataList>
             </View>
         </View>
