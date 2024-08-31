@@ -31,7 +31,7 @@ export function Component({
                 <Image style={computedStyle.Image} source={image} />
                 <View style={computedStyle.TitleAndSubtitleContainer}>
                     <Text style={computedStyle.Title}>{title}</Text>
-                    <Text style={computedStyle.Subtitle}>{`${GregorianCalendar.toString(date, DateFormat.Full)} - ${location}`}</Text>
+                    <Text style={computedStyle.Subtitle}>{`${GregorianCalendar.toString(date, DateFormat.Full)} • ${location}`}</Text>
                 </View>
             </Pressable>
         </EventRowContext.Provider>
