@@ -12,12 +12,11 @@ export function Component({
     location,
     date,
     image,
-    onPress,
-    onChange
+    onPress
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, title, location, date, image, onPress, onChange
+        style, title, location, date, image, onPress
     };
 
     const context = useComponentContext<EventRowContext>({ props });
@@ -27,7 +26,7 @@ export function Component({
 
     return (
         <EventRowContext.Provider value={context}>
-            <Pressable style={computedStyle.Root}>
+            <Pressable style={computedStyle.Root} onPress={onPress}>
                 <Image style={computedStyle.Image} source={image} />
                 <View style={computedStyle.TitleAndSubtitleContainer}>
                     <Text style={computedStyle.Title}>{title}</Text>

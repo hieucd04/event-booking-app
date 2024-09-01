@@ -44,6 +44,7 @@ export function Application()
                             location={event.location}
                             date={event.date}
                             image={EventImages[eventId]}
+                            onPress={() => { alert("Lorem Ipsum"); }}
                         />
                     ))}
                 </DataList>

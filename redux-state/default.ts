@@ -14,5 +14,9 @@ export const defaultState: State = {
             location: "Test Location",
             date: new Date()
         }
-    }
+    },
+    bookings: {},
+    selectedEventId: "",
+    selectedBookingId: "",
+    activeScreenName: "view-all-events"
 };
