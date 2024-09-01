@@ -174,7 +174,7 @@ export function Application()
         return (
             <View style={Styles.App__BookingForm__Root}>
                 <Text style={Styles.App__BookingForm__Title}>Enter Attendee Information Below</Text>
-                <Text style={Styles.App__BookingForm__Subtitle}>You won't be able to click the "Confirm" button if any of the fields below is empty</Text>
+                <Text style={Styles.App__BookingForm__Subtitle} numberOfLines={0}>You won't be able to click the "Confirm" button if any of the fields below is empty</Text>
                 <InputField
                     style={Styles.App__BookingForm__InputField}
                     placeholder={"Attendee Name"}
@@ -187,6 +187,7 @@ export function Application()
                     value={selectedBooking?.attendeeEmail}
                     onChangeText={newText => { dispatch(ReduxAction.Bookings.ChangeDraftBookingData({attendeeEmail: newText})); }}
                 />
+                <Text style={Styles.App__BookingForm__Label}>Ticket Type:</Text>
                 <DropdownMenu
                     style={Styles.App__BookingForm__DropdownMenu}
                     placeholder={"Ticket Type"}

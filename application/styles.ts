@@ -57,8 +57,8 @@ const App__EventRow__TitleAndSubtitleContainer: ViewStyle = function (viewProps)
         flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
+        rowGap: 2,
         justifyContent: "flex-start",
-        alignItems: "stretch",
         height: "100%",
         paddingLeft: 5
     };
@@ -210,7 +210,9 @@ export const App__BookingForm__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
-        paddingHorizontal: 30,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        paddingHorizontal: 15,
         paddingTop: 15
     };
 };
@@ -229,12 +231,26 @@ export const App__BookingForm__Subtitle: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
+        width: "100%",
         lineHeight: 21,
-        fontSize: 15,
+        fontSize: 14,
         color: Color.Neutral,
         marginTop: 10,
-        marginBottom: 15,
+        marginBottom: 10,
         textAlign: "center"
+    };
+};
+
+export const App__BookingForm__Label: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        lineHeight: 34,
+        fontSize: 14,
+        fontWeight: "bold",
+        color: Color.Neutral,
+        marginTop: 15,
+        marginRight: 10
     };
 };
 
@@ -262,7 +278,7 @@ const App__BookingForm__DropdownMenu__Root: ViewStyle = function (viewProps)
 
     return {
         ...DropdownMenuVariant.Default(dropdownMenuContext.props).Root(viewProps),
-        width: "100%",
+        flex: 1,
         marginTop: 15
     };
 };

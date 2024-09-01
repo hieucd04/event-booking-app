@@ -106,7 +106,7 @@ const DropdownMenu__Menu: ScrollViewStyle = function (scrollViewProps)
         display: dropdownMenuContext.props.isOpen ? "flex" : "none",
         flexDirection: "column",
         position: "absolute",
-        top: "100%",
+        top: 34,
         gap: 5,
         width: "100%",
         paddingVertical: 5,
