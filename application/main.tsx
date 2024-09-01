@@ -1,18 +1,21 @@
 import { View } from "@miniskylab/antimatter-view";
+import { Text } from "@miniskylab/antimatter-text";
+import { Image } from "@miniskylab/antimatter-image";
 import { DataList } from "@miniskylab/antimatter-data-list";
 import { DefaultIconSet } from "@miniskylab/antimatter-typography";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useMemo } from "react";
-import { EventRow } from "./components";
 import {
     createEventsSelector,
     createSelectedEventIdSelector,
     createSelectedBookingIdSelector,
     createActiveScreenNameSelector
 } from "../redux-selectors";
-import { EventImages } from "./event-images";
-import * as Styles from "./styles";
 import { ReduxAction } from "../redux-slices";
+import { EventImages } from "./event-images";
+import { EventRow } from "./components";
+import * as Styles from "./styles";
+import { DateFormat, GregorianCalendar } from "@miniskylab/antimatter-framework";
 
 export function Application()
 {
@@ -28,12 +31,14 @@ export function Application()
     const selectedBookingId = useSelector(selectedBookingIdSelector);
     const activeScreenName = useSelector(activeScreenNameSelector);
 
+    const selectedEvent = selectedEventId ? events[selectedEventId] : undefined;
+
     return (
         <View style={Styles.App__Root}>
             <View style={Styles.App__MainContent}>
                 <DataList
                     button1={{ icon: DefaultIconSet.PlusCircle, text: "Add New", onPress: () => { alert("Lorem Ipsum"); } }}
-                    button2={{ icon: DefaultIconSet.Eye, text: "Read-Only", onPress: () => { alert("Lorem Ipsum"); } }}
+                    button2={{ icon: DefaultIconSet.Eye, text: "Read-Only", disabled: true, onPress: () => { alert("Lorem Ipsum"); } }}
                     button3={{ icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: () => { alert("Lorem Ipsum"); } }}
                 >
                     {renderContent()}
@@ -75,7 +80,26 @@ export function Application()
 
     function renderEventDetails()
     {
-        return <View></View>;
+        if (!selectedEventId || !selectedEvent) return undefined;
+        return (
+            <View style={Styles.App__EventDetails__Root}>
+                <Text style={Styles.App__EventDetails__Title}>{selectedEvent.title}</Text>
+                <View style={Styles.App__EventDetails__LabelValueContainer}>
+                    <Text style={Styles.App__EventDetails__Label}>Date:</Text>
+                    <Text style={Styles.App__EventDetails__Value}>{GregorianCalendar.toString(new Date(selectedEvent.date), DateFormat.Full)}</Text>
+                </View>
+                <View style={Styles.App__EventDetails__LabelValueContainer}>
+                    <Text style={Styles.App__EventDetails__Label}>Location:</Text>
+                    <Text style={Styles.App__EventDetails__Value}>{selectedEvent.location}</Text>
+                </View>
+                <View style={Styles.App__EventDetails__LabelValueContainer}>
+                    <Text style={Styles.App__EventDetails__Label}>Available Ticket Types:</Text>
+                    <Text style={Styles.App__EventDetails__Value}>{selectedEvent.availableTicketTypes.join(", ")}</Text>
+                </View>
+                <Image style={Styles.App__EventDetails__Image} source={EventImages[selectedEventId]}/>
+                <Text style={Styles.App__EventDetails__Description}>{selectedEvent.description}</Text>
+            </View>
+        );
     }
 
     function renderBookings()

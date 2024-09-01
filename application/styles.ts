@@ -98,4 +98,77 @@ export const App__EventRow: EventRow.Style = function ()
         Subtitle: App__EventRow__Subtitle,
         Image: App__EventRow__Image
     };
-}
+};
+
+export const App__EventDetails__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        paddingTop: 15
+    };
+};
+
+export const App__EventDetails__Title: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        fontSize: 24,
+        fontWeight: "bold",
+        textTransform: "uppercase",
+        color: Color.Neutral
+    };
+};
+
+export const App__EventDetails__LabelValueContainer: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        width: "100%",
+        justifyContent: "flex-start",
+        flexDirection: "row",
+        paddingHorizontal: 30,
+        marginTop: 15,
+    };
+};
+
+export const App__EventDetails__Value: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        fontSize: 16,
+        fontWeight: "bold",
+        color: Color.Neutral
+    };
+};
+
+export const App__EventDetails__Label: TextStyle = function (textProps)
+{
+    return {
+        ...App__EventDetails__Value(textProps),
+        paddingRight: 5,
+        color: Color.Primary
+    };
+};
+
+export const App__EventDetails__Image: ImageStyle = function (imageProps)
+{
+    return {
+        ...ImageVariant.Default(imageProps),
+        marginTop: 20
+    };
+};
+
+export const App__EventDetails__Description: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        width: "100%",
+        lineHeight: 24,
+        alignItems: "flex-start",
+        paddingHorizontal: 30,
+        marginTop: 20,
+        color: Color.Neutral,
+        fontSize: 16,
+        textAlign: "justify"
+    };
+};

@@ -6,16 +6,22 @@ export type State = {
     activeScreenName: "event" | "booking";
 }
 
+export enum TicketType {
+    GeneralAdmission = "General Admission",
+    VIP = "VIP"
+}
+
 type Event = {
     readonly title: string;
     readonly description: string;
     readonly location: string;
     readonly date: string;
+    readonly availableTicketTypes: TicketType[];
 }
 
 type Booking = {
     readonly eventId: string;
     readonly attendeeName: string;
     readonly attendeeEmail: string;
-    readonly ticketType: string;
+    readonly ticketType: TicketType;
 }
