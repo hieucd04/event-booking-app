@@ -10,5 +10,6 @@ export type Style = (eventRowProps: WithoutStyle<Props>) => {
     TitleAndSubtitleContainer: ViewStyle;
     Title: TextStyle;
     Subtitle: TextStyle;
+    StatusText: TextStyle;
     Image: ImageStyle;
 };

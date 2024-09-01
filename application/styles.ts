@@ -1,4 +1,4 @@
-import { Layer } from "@miniskylab/antimatter-framework";
+import { CursorType, Layer } from "@miniskylab/antimatter-framework";
 import { Color } from "@miniskylab/antimatter-color-scheme";
 import { TextStyle, TextVariant } from "@miniskylab/antimatter-text";
 import { ViewStyle, ViewVariant } from "@miniskylab/antimatter-view";
@@ -28,6 +28,8 @@ export const App__MainContent: ViewStyle = function ()
 
 const App__EventRow__Root: PressableStyle = function (pressableProps, pressableState)
 {
+    const eventRowContext = EventRow.ContextHook.useEventRowContext();
+
     return {
         ...PressableVariant.Default(pressableProps, pressableState),
         flexDirection: "row",
@@ -38,8 +40,9 @@ const App__EventRow__Root: PressableStyle = function (pressableProps, pressableS
         borderBottomWidth: 2,
         borderStyle: "solid",
         borderColor: Color.Neutral,
+        cursor: eventRowContext.props.isSelected ? CursorType.Default : CursorType.Pointer,
         marginTop: -2,
-        ...(pressableState.hovered || pressableState.pressed) && {
+        ...(pressableState.hovered || pressableState.pressed || eventRowContext.props.isSelected) && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10,
             zIndex: Layer.Higher
@@ -51,9 +54,11 @@ const App__EventRow__TitleAndSubtitleContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
-        flexGrow: 1,
-        justifyContent: "space-between",
-        alignItems: "flex-start",
+        flex: 1,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
+        alignItems: "stretch",
         height: "100%",
         paddingLeft: 5
     };
@@ -78,10 +83,18 @@ const App__EventRow__Subtitle: TextStyle = function (textProps)
     return {
         ...TextVariant.Default(textProps),
         lineHeight: 18,
-        marginRight: 10,
         fontSize: 14,
         fontWeight: "bold",
         color: Color.Neutral
+    };
+};
+
+const App__EventRow__StatusText: TextStyle = function (textProps)
+{
+    return {
+        ...App__EventRow__Subtitle(textProps),
+        marginLeft: 5,
+        color: Color.Green
     };
 };
 
@@ -104,6 +117,7 @@ export const App__EventRow: EventRow.Style = function ()
         TitleAndSubtitleContainer: App__EventRow__TitleAndSubtitleContainer,
         Title: App__EventRow__Title,
         Subtitle: App__EventRow__Subtitle,
+        StatusText: App__EventRow__StatusText,
         Image: App__EventRow__Image
     };
 };

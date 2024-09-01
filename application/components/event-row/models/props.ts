@@ -7,5 +7,7 @@ export type Props = ComponentProps<Style> & {
     readonly location: string;
     readonly date: Date;
     readonly image: ImageSourcePropType;
+    readonly isBooked?: boolean;
+    readonly isSelected?: boolean;
     readonly onPress?: GestureResponderEventHandler;
 }

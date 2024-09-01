@@ -8,6 +8,7 @@ import { DateFormat, GregorianCalendar } from "@miniskylab/antimatter-framework"
 import { DefaultIconSet } from "@miniskylab/antimatter-typography";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useMemo, useState } from "react";
+import { Alert, Platform } from "react-native";
 import {
     createEventsSelector,
     createBookingsSelector,
@@ -60,13 +61,13 @@ export function Application()
             case "booking":
                 return selectedBookingId === ""
                     ? {
-                        button1: { icon: DefaultIconSet.ArrowLeft, text: "Back", onPress: onCancelDraftBooking},
+                        button1: { icon: DefaultIconSet.ArrowLeft, text: "Back", onPress: onCancelDraftBooking },
                         button2: { icon: DefaultIconSet.Eye, text: "Booking Form", disabled: true },
-                        button3: { icon: DefaultIconSet.CheckMarkInsideCircle, text: "Confirm", onPress: onConfirmButtonPress}
+                        button3: { icon: DefaultIconSet.CheckMarkInsideCircle, text: "Confirm", onPress: onConfirmButtonPress }
                     } : {
-                        button1: { icon: DefaultIconSet.ArrowLeft, text: "Back", onPress: () => { console.log("Lorem Ipsum"); }},
+                        button1: { icon: DefaultIconSet.ArrowLeft, text: "Back", onPress: onGoingBackFromViewBookingScreen },
                         button2: { icon: DefaultIconSet.Eye, text: "All Bookings", disabled: true },
-                        button3: { icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", disabled: !selectedBookingId, onPress: () => { console.log("Lorem Ipsum"); }}
+                        button3: { icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", disabled: !selectedBookingId, onPress: onCancelConfirmedBooking }
                     };
 
             default:
@@ -75,7 +76,7 @@ export function Application()
                     ? {
                         button1: { icon: DefaultIconSet.ArrowLeft, text: "Back", disabled: true },
                         button2: { icon: DefaultIconSet.Eye, text: "All Events", disabled: true },
-                        button3: { icon: DefaultIconSet.Registry, text: "Book Now", disabled: true }
+                        button3: { icon: DefaultIconSet.Fairshare, text: "View Bookings", onPress: onViewBookingButtonPress }
                     } : {
                         button1: { icon: DefaultIconSet.ArrowLeft, text: "Back", onPress: () => { dispatch(ReduxAction.SelectedEventId.SetSelectedEventId(null)); } },
                         button2: { icon: DefaultIconSet.Eye, text: "Event Details", disabled: true },
@@ -145,7 +146,9 @@ export function Application()
                 location={events[booking.eventId].location}
                 date={new Date(events[booking.eventId].date)}
                 image={EventImages[booking.eventId]}
-                onPress={() => { dispatch(ReduxAction.SelectedBookingId.SetSelectedBookingId(booking.eventId)); }}
+                isBooked={true}
+                isSelected={selectedBookingId === bookingId}
+                onPress={selectedBookingId !== bookingId ? () => { dispatch(ReduxAction.SelectedBookingId.SetSelectedBookingId(bookingId)); } : undefined}
             />
         ));
     }
@@ -221,5 +224,51 @@ export function Application()
         dispatch(ReduxAction.SelectedBookingId.SetSelectedBookingId(null));
         dispatch(ReduxAction.ActiveScreenName.SetActiveScreenName("event"));
         dispatch(ReduxAction.Bookings.CancelBooking(""));
+    }
+
+    function onCancelConfirmedBooking()
+    {
+        if (!selectedBookingId || !selectedBooking) return;
+
+        const dialogBoxTitle = "Caution";
+        const dialogBoxMessage = `Are you sure you want to cancel the booking for event \n"${events[selectedBooking.eventId].title}"`;
+        const dialogBoxAction = () => {
+            dispatch(ReduxAction.SelectedBookingId.SetSelectedBookingId(null));
+            dispatch(ReduxAction.Bookings.CancelBooking(selectedBookingId));
+        };
+
+        if (Platform.OS === "web")
+        {
+            if (window.confirm(dialogBoxMessage))
+            {
+                dialogBoxAction();
+            }
+        }
+        else
+        {
+            Alert.alert(
+                dialogBoxTitle,
+                dialogBoxMessage,
+                [
+                    { text: "Cancel", style: "cancel" },
+                    {
+                        text: "OK",
+                        onPress: dialogBoxAction
+                    }
+                ]
+            );
+        }
+    }
+
+    function onViewBookingButtonPress()
+    {
+        dispatch(ReduxAction.ActiveScreenName.SetActiveScreenName("booking"));
+        dispatch(ReduxAction.SelectedBookingId.SetSelectedBookingId(null));
+    }
+
+    function onGoingBackFromViewBookingScreen()
+    {
+        dispatch(ReduxAction.ActiveScreenName.SetActiveScreenName("event"));
+        dispatch(ReduxAction.SelectedBookingId.SetSelectedBookingId(null));
     }
 }
