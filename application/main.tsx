@@ -8,7 +8,7 @@ import { DateFormat, GregorianCalendar } from "@miniskylab/antimatter-framework"
 import { DefaultIconSet } from "@miniskylab/antimatter-typography";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useMemo, useState } from "react";
-import { Alert, Platform } from "react-native";
+import { Alert, Platform, SafeAreaView } from "react-native";
 import {
     createEventsSelector,
     createBookingsSelector,
@@ -46,6 +46,7 @@ export function Application()
 
     return (
         <View style={Styles.App__Root}>
+            <SafeAreaView/>
             <View style={Styles.App__MainContent}>
                 <DataList button1={button1} button2={button2} button3={button3}>
                     {renderContent()}
