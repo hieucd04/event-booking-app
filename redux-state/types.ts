@@ -11,17 +11,17 @@ export enum TicketType {
     VIP = "VIP"
 }
 
+export type Booking = {
+    readonly eventId: string;
+    readonly attendeeName: string;
+    readonly attendeeEmail: string;
+    readonly ticketType: TicketType;
+}
+
 type Event = {
     readonly title: string;
     readonly description: string;
     readonly location: string;
     readonly date: string;
     readonly availableTicketTypes: TicketType[];
-}
-
-type Booking = {
-    readonly eventId: string;
-    readonly attendeeName: string;
-    readonly attendeeEmail: string;
-    readonly ticketType: TicketType;
 }

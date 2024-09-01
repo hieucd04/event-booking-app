@@ -2,7 +2,7 @@ import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/an
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {Layer, useEnvironment} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {type PressableStyle} from "@miniskylab/antimatter-pressable";
+import {type PressableStyle, PressableContextHook} from "@miniskylab/antimatter-pressable";
 import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
@@ -129,6 +129,7 @@ const DataList__Button1__Root: PressableStyle = function (pressableProps, pressa
 const DataList__Button1__Icon: IconStyle = function (iconProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
 
@@ -136,13 +137,18 @@ const DataList__Button1__Icon: IconStyle = function (iconProps)
         ...inheritedStyle,
         flexGrow: 1,
         fontSize: 28,
-        color: Color.Neutral
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
     };
 };
 
 const DataList__Button1__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
@@ -154,7 +160,11 @@ const DataList__Button1__Label: TextStyle = function (textProps)
         paddingHorizontal: 0,
         fontSize: 12,
         fontWeight: "bold",
-        color: Color.Neutral
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
     };
 };
 

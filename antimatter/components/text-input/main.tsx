@@ -66,7 +66,8 @@ export const TextInput = forwardRef(function TextInput(
                     ...inheritTextStyleFrom(computedStyle),
                     ...useTypography(computedStyle),
                     width: "100%",
-                    height: "100%"
+                    height: "100%",
+                    ...{outline: "none"}
                 }}
                 value={value ?? EMPTY_STRING}
                 maxLength={maxLength}

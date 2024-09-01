@@ -1,8 +1,11 @@
+import { Layer } from "@miniskylab/antimatter-framework";
 import { Color } from "@miniskylab/antimatter-color-scheme";
 import { TextStyle, TextVariant } from "@miniskylab/antimatter-text";
 import { ViewStyle, ViewVariant } from "@miniskylab/antimatter-view";
 import { ImageStyle, ImageVariant } from "@miniskylab/antimatter-image";
+import { InputFieldStyle, InputFieldVariant, InputFieldContextHook } from "@miniskylab/antimatter-input-field";
 import { PressableStyle, PressableVariant } from "@miniskylab/antimatter-pressable";
+import { DropdownMenuStyle, DropdownMenuVariant, DropdownMenuContextHook } from "@miniskylab/antimatter-dropdown-menu";
 import { EventRow } from "./components";
 
 export const App__Root: ViewStyle = function ()
@@ -36,6 +39,11 @@ const App__EventRow__Root: PressableStyle = function (pressableProps, pressableS
         borderStyle: "solid",
         borderColor: Color.Neutral,
         marginTop: -2,
+        ...(pressableState.hovered || pressableState.pressed) && {
+            borderColor: Color.Primary,
+            backgroundColor: Color.Primary__a10,
+            zIndex: Layer.Higher
+        }
     };
 };
 
@@ -104,6 +112,7 @@ export const App__EventDetails__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
+        paddingHorizontal: 30,
         paddingTop: 15
     };
 };
@@ -115,7 +124,8 @@ export const App__EventDetails__Title: TextStyle = function (textProps)
         fontSize: 24,
         fontWeight: "bold",
         textTransform: "uppercase",
-        color: Color.Neutral
+        color: Color.Neutral,
+        marginBottom: 10
     };
 };
 
@@ -126,7 +136,6 @@ export const App__EventDetails__LabelValueContainer: ViewStyle = function (viewP
         width: "100%",
         justifyContent: "flex-start",
         flexDirection: "row",
-        paddingHorizontal: 30,
         marginTop: 15,
     };
 };
@@ -165,10 +174,55 @@ export const App__EventDetails__Description: TextStyle = function (textProps)
         width: "100%",
         lineHeight: 24,
         alignItems: "flex-start",
-        paddingHorizontal: 30,
         marginTop: 20,
         color: Color.Neutral,
         fontSize: 16,
         textAlign: "justify"
+    };
+};
+
+export const App__BookingForm__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        paddingHorizontal: 30,
+        paddingTop: 15
+    };
+};
+
+const App__BookingForm__InputField__Root: ViewStyle = function (viewProps)
+{
+    const inputFieldContext = InputFieldContextHook.useInputFieldContext();
+
+    return {
+        ...InputFieldVariant.Default(inputFieldContext.props).Root(viewProps),
+        marginTop: 15
+    };
+};
+
+export const App__BookingForm__InputField: InputFieldStyle = function (inputFieldProps)
+{
+    return {
+        ...InputFieldVariant.Default(inputFieldProps),
+        Root: App__BookingForm__InputField__Root
+    };
+};
+
+const App__BookingForm__DropdownMenu__Root: ViewStyle = function (viewProps)
+{
+    const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
+
+    return {
+        ...DropdownMenuVariant.Default(dropdownMenuContext.props).Root(viewProps),
+        width: "100%",
+        marginTop: 15
+    };
+};
+
+export const App__BookingForm__DropdownMenu: DropdownMenuStyle = function (dropdownMenuProps)
+{
+    return {
+        ...DropdownMenuVariant.Default(dropdownMenuProps),
+        Root: App__BookingForm__DropdownMenu__Root
     };
 };

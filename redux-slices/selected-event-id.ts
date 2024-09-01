@@ -9,6 +9,6 @@ export const selectedEventIdSlice = createSlice({
         {
             const selectedEventId = action.payload;
             return selectedEventId;
-        },
+        }
     }
 });
