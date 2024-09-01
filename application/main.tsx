@@ -63,7 +63,7 @@ export function Application()
                     ? {
                         button1: { icon: DefaultIconSet.ArrowLeft, text: "Back", onPress: onCancelDraftBooking },
                         button2: { icon: DefaultIconSet.Eye, text: "Booking Form", disabled: true },
-                        button3: { icon: DefaultIconSet.CheckMarkInsideCircle, text: "Confirm", onPress: onConfirmButtonPress }
+                        button3: { icon: DefaultIconSet.CheckMarkInsideCircle, text: "Confirm", disabled: !isConfirmButtonEnabled(), onPress: onConfirmButtonPress }
                     } : {
                         button1: { icon: DefaultIconSet.ArrowLeft, text: "Back", onPress: onGoingBackFromViewBookingScreen },
                         button2: { icon: DefaultIconSet.Eye, text: "All Bookings", disabled: true },
@@ -83,6 +83,11 @@ export function Application()
                         button3: { icon: DefaultIconSet.Registry, text: "Book Now", onPress: onBookButtonPress }
                     };
         }
+    }
+
+    function isConfirmButtonEnabled()
+    {
+        return selectedBooking?.attendeeName && selectedBooking?.attendeeEmail;
     }
 
     function renderContent()
@@ -130,7 +135,9 @@ export function Application()
                     <Text style={Styles.App__EventDetails__Label}>Available Ticket Types:</Text>
                     <Text style={Styles.App__EventDetails__Value}>{selectedEvent.availableTicketTypes.join(", ")}</Text>
                 </View>
-                <Image style={Styles.App__EventDetails__Image} source={EventImages[selectedEventId]}/>
+                <View style={Styles.App__EventDetails__ImageContainer}>
+                    <Image style={Styles.App__EventDetails__Image} source={EventImages[selectedEventId]}/>
+                </View>
                 <Text style={Styles.App__EventDetails__Description}>{selectedEvent.description}</Text>
             </View>
         );
@@ -165,6 +172,8 @@ export function Application()
 
         return (
             <View style={Styles.App__BookingForm__Root}>
+                <Text style={Styles.App__BookingForm__Title}>Enter Attendee Information Below</Text>
+                <Text style={Styles.App__BookingForm__Subtitle}>You won't be able to click the "Confirm" button if any of the fields below is empty</Text>
                 <InputField
                     style={Styles.App__BookingForm__InputField}
                     placeholder={"Attendee Name"}

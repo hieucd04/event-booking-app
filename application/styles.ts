@@ -105,7 +105,7 @@ const App__EventRow__Image: ImageStyle = function (imageProps)
         width: 40,
         height: 40,
         aspectRatio: 1,
-        resizeMode: "cover",
+        resizeMode: "contain",
         marginVertical: 2
     };
 };
@@ -126,7 +126,7 @@ export const App__EventDetails__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
-        paddingHorizontal: 30,
+        paddingHorizontal: 15,
         paddingTop: 15
     };
 };
@@ -135,9 +135,10 @@ export const App__EventDetails__Title: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        fontSize: 24,
+        fontSize: 21,
         fontWeight: "bold",
         textTransform: "uppercase",
+        textDecorationLine: "underline",
         color: Color.Neutral,
         marginBottom: 10
     };
@@ -150,7 +151,7 @@ export const App__EventDetails__LabelValueContainer: ViewStyle = function (viewP
         width: "100%",
         justifyContent: "flex-start",
         flexDirection: "row",
-        marginTop: 15,
+        marginTop: 10,
     };
 };
 
@@ -173,11 +174,21 @@ export const App__EventDetails__Label: TextStyle = function (textProps)
     };
 };
 
+export const App__EventDetails__ImageContainer: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        width: "100%",
+        marginTop: 20
+    };
+};
+
 export const App__EventDetails__Image: ImageStyle = function (imageProps)
 {
     return {
         ...ImageVariant.Default(imageProps),
-        marginTop: 20
+        resizeMode: "cover",
+        width: "100%"
     };
 };
 
@@ -201,6 +212,29 @@ export const App__BookingForm__Root: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         paddingHorizontal: 30,
         paddingTop: 15
+    };
+};
+
+export const App__BookingForm__Title: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        fontSize: 21,
+        fontWeight: "bold",
+        color: Color.Neutral
+    };
+};
+
+export const App__BookingForm__Subtitle: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        lineHeight: 21,
+        fontSize: 15,
+        color: Color.Neutral,
+        marginTop: 10,
+        marginBottom: 15,
+        textAlign: "center"
     };
 };
 
