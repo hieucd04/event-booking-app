@@ -1,16 +1,16 @@
 export type State = {
     events: { [id: string]: Event; };
     bookings: { [id: string]: Booking; };
-    selectedEventId?: string;
-    selectedBookingId?: string;
-    activeScreenName: "view-all-events" | "event-details" | "booking-form" | "view-all-bookings" | "booking-details";
+    selectedEventId: string | null;
+    selectedBookingId: string | null;
+    activeScreenName: "event" | "booking";
 }
 
 type Event = {
     readonly title: string;
     readonly description: string;
     readonly location: string;
-    readonly date: Date;
+    readonly date: string;
 }
 
 type Booking = {

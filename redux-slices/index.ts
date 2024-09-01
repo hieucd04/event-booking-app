@@ -1,21 +1,21 @@
 import { eventsSlice } from "./events";
 import { bookingsSlice } from "./bookings";
-import { selectedEventSlice } from "./selected-event";
-import { selectedBookingSlice } from "./selected-booking";
+import { selectedEventIdSlice } from "./selected-event-id";
+import { selectedBookingIdSlice } from "./selected-booking-id";
 import { activeScreenNameSlice } from "./active-screen-name";
 
 export const ReduxAction = {
     Events: eventsSlice.actions,
     Bookings: bookingsSlice.actions,
-    SelectedEvent: selectedEventSlice.actions,
-    SelectedBooking: selectedBookingSlice.actions,
+    SelectedEventId: selectedEventIdSlice.actions,
+    SelectedBookingId: selectedBookingIdSlice.actions,
     ActiveScreenName: activeScreenNameSlice.actions
 };
 
 export const ReduxSliceReducer = {
     Events: eventsSlice.reducer,
     Bookings: bookingsSlice.reducer,
-    SelectedEvent: selectedEventSlice.reducer,
-    SelectedBooking: selectedBookingSlice.reducer,
+    SelectedEventId: selectedEventIdSlice.reducer,
+    SelectedBookingId: selectedBookingIdSlice.reducer,
     ActiveScreenName: activeScreenNameSlice.reducer
 };

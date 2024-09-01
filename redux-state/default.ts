@@ -6,17 +6,17 @@ export const defaultState: State = {
             title: "Test Title",
             description: "Test Description",
             location: "Test Location",
-            date: new Date()
+            date: new Date().toISOString()
         },
         "event_2": {
             title: "Test Title",
             description: "Test Description",
             location: "Test Location",
-            date: new Date()
+            date: new Date().toISOString()
         }
     },
     bookings: {},
-    selectedEventId: "",
-    selectedBookingId: "",
-    activeScreenName: "view-all-events"
+    selectedEventId: null,
+    selectedBookingId: null,
+    activeScreenName: "event"
 };

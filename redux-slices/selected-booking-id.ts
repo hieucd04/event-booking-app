@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { defaultState } from "../redux-state";
 
-export const selectedBookingSlice = createSlice({
-    name: "selected-booking",
+export const selectedBookingIdSlice = createSlice({
+    name: "selected-booking-id",
     initialState: defaultState.selectedBookingId,
     reducers: {}
 });
