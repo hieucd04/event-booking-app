@@ -6,7 +6,7 @@ export const defaultState: State = {
             title: "Dota 2 - The International 2024",
             description: "The International 2024, is the upcoming 13th edition of the The International, the annual Dota 2 world championship esports tournament hosted by Valve, the game's developer. The tournament is set to take place in Copenhagen, Denmark, in Royal Arena.",
             location: "Denmark",
-            date: new Date(2024, 8, 4).toISOString(),
+            date: new Date(2024, 8, 5).toISOString(),
             availableTicketTypes: [TicketType.GeneralAdmission, TicketType.VIP]
         },
         "event_2": {

@@ -38,6 +38,8 @@ export function Application()
     const selectedBookingId = useSelector(selectedBookingIdSelector);
     const activeScreenName = useSelector(activeScreenNameSelector);
 
+    const [sortBy, setSortBy] = useState("sortByDate");
+    const [isSortByDropdownMenuOpen, setIsSortByDropdownMenuOpen] = useState(false);
     const [isTicketTypeDropdownMenuOpen, setIsTicketTypeDropdownMenuOpen] = useState(false);
 
     const selectedEvent = selectedEventId ? events[selectedEventId] : undefined;
@@ -48,12 +50,29 @@ export function Application()
         <View style={Styles.App__Root}>
             <SafeAreaView/>
             <View style={Styles.App__MainContent}>
+                <Text style={Styles.App__Title}>Event Booking App</Text>
+                <Text style={Styles.App__Subtitle}>Test Submission by Harry Cu</Text>
+                {renderSortByDropdownMenu()}
                 <DataList button1={button1} button2={button2} button3={button3}>
                     {renderContent()}
                 </DataList>
             </View>
         </View>
     );
+
+    function byDate(dateA: string, dateB: string): number
+    {
+        return new Date(dateA).getTime() - new Date(dateB).getTime();
+    }
+
+    function byLocation(locationA: string, locationB: string): number
+    {
+        return locationA === locationB
+            ? 0
+            : locationA > locationB
+                ? 1
+                : -1;
+    }
 
     function getControlPanel(): DataListControlPanel
     {
@@ -91,6 +110,32 @@ export function Application()
         return selectedBooking?.attendeeName && selectedBooking?.attendeeEmail;
     }
 
+    function renderSortByDropdownMenu()
+    {
+        const isDisabled = !!selectedEventId || selectedBookingId === "";
+        if (isDisabled) return null;
+
+        return (
+            <View style={Styles.App__SortByDropdownMenuContainer}>
+                <Text style={Styles.App__SortByDropdownMenuLabel}>Sort By:</Text>
+                <DropdownMenu
+                    style={Styles.App__SortByDropdownMenu}
+                    menuItems={{
+                        sortByDate: { displayText: "Sort by date", status: sortBy === "sortByDate" ? MenuItemStatus.Selected : undefined },
+                        sortByLocation: { displayText: "Sort by location", status: sortBy === "sortByLocation" ? MenuItemStatus.Selected : undefined }
+                    }}
+                    isOpen={isSortByDropdownMenuOpen}
+                    onSelectedItemContainerPress={() => { setIsSortByDropdownMenuOpen(!isSortByDropdownMenuOpen); }}
+                    onMenuItemPress={menuItemKey =>
+                    {
+                        setSortBy(menuItemKey);
+                        setIsSortByDropdownMenuOpen(false);
+                    }}
+                />
+            </View>
+        );
+    }
+
     function renderContent()
     {
         switch (activeScreenName)
@@ -105,17 +150,32 @@ export function Application()
 
     function renderEvents()
     {
-        return Object.entries(events).map(([eventId, event]) => (
-            <EventRow.Component
-                key={eventId}
-                style={Styles.App__EventRow}
-                title={event.title}
-                location={event.location}
-                date={new Date(event.date)}
-                image={EventImages[eventId]}
-                onPress={() => { dispatch(ReduxAction.SelectedEventId.SetSelectedEventId(eventId)); }}
-            />
-        ));
+        return Object.keys(events)
+            .sort((eventIdA: string, eventIdB: string) =>
+            {
+                const eventA = events[eventIdA];
+                const eventB = events[eventIdB];
+
+                return sortBy === "sortByLocation"
+                    ? byLocation(eventA.location, eventB.location)
+                    : byDate(eventA.date, eventB.date);
+            })
+            .map((eventId) =>
+            (
+                <EventRow.Component
+                    key={eventId}
+                    style={Styles.App__EventRow}
+                    title={events[eventId].title}
+                    location={events[eventId].location}
+                    date={new Date(events[eventId].date)}
+                    image={EventImages[eventId]}
+                    onPress={() =>
+                    {
+                        setIsSortByDropdownMenuOpen(false);
+                        dispatch(ReduxAction.SelectedEventId.SetSelectedEventId(eventId));
+                    }}
+                />
+            ));
     }
 
     function renderEventDetails()
@@ -146,19 +206,30 @@ export function Application()
 
     function renderBookings()
     {
-        return Object.entries(bookings).map(([bookingId, booking]) => (
-            <EventRow.Component
-                key={bookingId}
-                style={Styles.App__EventRow}
-                title={events[booking.eventId].title}
-                location={events[booking.eventId].location}
-                date={new Date(events[booking.eventId].date)}
-                image={EventImages[booking.eventId]}
-                isBooked={true}
-                isSelected={selectedBookingId === bookingId}
-                onPress={selectedBookingId !== bookingId ? () => { dispatch(ReduxAction.SelectedBookingId.SetSelectedBookingId(bookingId)); } : undefined}
-            />
-        ));
+        return Object.keys(bookings)
+            .sort((bookingIdA: string, bookingIdB: string) =>
+            {
+                const eventA = events[bookings[bookingIdA].eventId];
+                const eventB = events[bookings[bookingIdB].eventId];
+
+                return sortBy === "sortByLocation"
+                    ? byLocation(eventA.location, eventB.location)
+                    : byDate(eventA.date, eventB.date);
+            })
+            .map(bookingId =>
+            (
+                <EventRow.Component
+                    key={bookingId}
+                    style={Styles.App__EventRow}
+                    title={events[bookings[bookingId].eventId].title}
+                    location={events[bookings[bookingId].eventId].location}
+                    date={new Date(events[bookings[bookingId].eventId].date)}
+                    image={EventImages[bookings[bookingId].eventId]}
+                    isBooked={true}
+                    isSelected={selectedBookingId === bookingId}
+                    onPress={selectedBookingId !== bookingId ? () => { dispatch(ReduxAction.SelectedBookingId.SetSelectedBookingId(bookingId)); } : undefined}
+                />
+            ));
     }
 
     function renderBookingForm()
@@ -222,6 +293,8 @@ export function Application()
     {
         if (!selectedBooking) return;
 
+        setIsSortByDropdownMenuOpen(false);
+        setIsTicketTypeDropdownMenuOpen(false);
         dispatch(ReduxAction.Bookings.AddConfirmedBooking({...selectedBooking}));
         dispatch(ReduxAction.Bookings.CancelBooking(""));
         dispatch(ReduxAction.SelectedBookingId.SetSelectedBookingId(null));

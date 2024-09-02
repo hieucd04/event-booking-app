@@ -26,6 +26,69 @@ export const App__MainContent: ViewStyle = function ()
     };
 };
 
+export const App__Title: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        fontSize: 30,
+        fontWeight: "bold",
+        color: Color.Neutral,
+        marginTop: 15,
+        textAlign: "center"
+    };
+};
+
+export const App__Subtitle: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        lineHeight: 21,
+        fontSize: 14,
+        color: Color.Neutral,
+        marginTop: 6,
+        marginBottom: 15,
+        textAlign: "center"
+    };
+};
+
+export const App__SortByDropdownMenuContainer: ViewStyle = function ()
+{
+    return {
+        flexDirection: "row",
+        zIndex: Layer.AlwaysOnTop,
+        marginBottom: 5
+    };
+};
+
+export const App__SortByDropdownMenuLabel: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        lineHeight: 34,
+        fontWeight: "bold",
+        color: Color.Neutral,
+        marginRight: 10
+    };
+};
+
+const App__SortByDropdownMenu__Root: ViewStyle = function (viewProps)
+{
+    const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
+
+    return {
+        ...DropdownMenuVariant.Default(dropdownMenuContext.props).Root(viewProps),
+        flex: 1
+    };
+};
+
+export const App__SortByDropdownMenu: DropdownMenuStyle = function (dropdownMenuProps)
+{
+    return {
+        ...DropdownMenuVariant.Default(dropdownMenuProps),
+        Root: App__SortByDropdownMenu__Root
+    };
+};
+
 const App__EventRow__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const eventRowContext = EventRow.ContextHook.useEventRowContext();
